@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-	
     <id>com.prueba2</id>
-    <name>prueba2</name>
+    <name>TitaniumApp</name>
     <version>1.0</version>
     <publisher>Yessenia</publisher>
     <url/>
     <description/>
     <copyright>2018 by Yessenia</copyright>
-    <icon>appicon.png</icon>
+    <icon>appicon2.png</icon>
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
@@ -44,12 +43,12 @@
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android"/>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-    	<manifest>
-	        <uses-permission android:name="android.permission.CAMERA" />
-			<uses-feature android:name="android.hardware.camera" />
-			<uses-permission android:name="android.permission.RECORD_AUDIO" />
-		</manifest>
-	</android>
+        <manifest>
+            <uses-permission android:name="android.permission.CAMERA"/>
+            <uses-feature android:name="android.hardware.camera"/>
+            <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+        </manifest>
+    </android>
     <modules/>
     <deployment-targets>
         <target device="iphone">false</target>
@@ -59,5 +58,4 @@
     </deployment-targets>
     <sdk-version>7.1.0.GA</sdk-version>
     <property name="appc-app-id" type="string">5ab427bc1000f325c5c758d7</property>
-
 </ti:app>

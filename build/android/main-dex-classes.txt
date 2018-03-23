@@ -499,6 +499,7 @@ android/support/v4/view/accessibility/AccessibilityEventCompat.class
 android/support/design/R$style.class
 android/support/v7/widget/RecyclerView$ItemAnimatorRestoreListener.class
 android/support/design/widget/TabLayout$ViewPagerOnTabSelectedListener.class
+com/prueba2/TitaniumappApplication.class
 android/support/design/widget/AppBarLayout$OnOffsetChangedListener.class
 android/support/v7/app/ActionBar$NavigationMode.class
 android/support/v7/view/ActionMode.class
@@ -555,7 +556,6 @@ android/support/v4/media/MediaMetadataCompat$LongKey.class
 android/support/v7/widget/RecyclerView$OnScrollListener.class
 org/appcelerator/titanium/util/TiPlatformHelper.class
 android/support/v4/view/ViewPager$1.class
-com/prueba2/Prueba2Application.class
 android/support/annotation/StyleableRes.class
 android/support/v4/view/ViewPager$LayoutParams.class
 android/support/transition/ViewUtils.class
@@ -566,7 +566,6 @@ android/support/design/widget/BaseTransientBottomBar.class
 android/support/transition/TranslationAnimationCreator.class
 android/support/annotation/LayoutRes.class
 android/support/design/widget/AppBarLayout$LayoutParams.class
-com/prueba2/Prueba2AppInfo.class
 android/support/transition/Transition$2.class
 android/support/annotation/StyleRes.class
 android/support/v4/app/Fragment.class
@@ -635,6 +634,7 @@ android/support/v4/media/MediaBrowserCompat.class
 android/support/v7/widget/RecyclerView$RecyclerViewDataObserver.class
 android/support/v7/widget/RecyclerView$ChildDrawingOrderCallback.class
 android/support/v4/app/NotificationCompat$InboxStyle.class
+com/prueba2/TitaniumappAppInfo.class
 android/support/v4/media/session/PlaybackStateCompat$CustomAction.class
 android/support/transition/AnimatorUtilsApi14$AnimatorPauseListenerCompat.class
 android/support/v4/view/ViewPager$ViewPositionComparator.class

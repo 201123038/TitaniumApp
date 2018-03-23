@@ -2,11 +2,13 @@
  * Create a new `Ti.UI.TabGroup`.
  */
 var tabGroup = Ti.UI.createTabGroup();
+var win;
 
-	tabGroup.addTab(createTab("Tab 1", "ventana 1", "assets/images/tab1.png"));
-	tabGroup.addTab(createTab("Tab 2", "ventana 2", "assets/images/tab2.png"));
-	var win;
-
+	tabGroup.addTab(createTab("Inicio", "Inicio", ""));
+	tabGroup.addTab(createTab("", "PaperNews", "assets/images/paper.png"));
+	tabGroup.addTab(createTab("", "Camara", "assets/images/camara.png"));
+	tabGroup.addTab(createTab("", "Galeria", "assets/images/galeria.png"));
+	
 
 
 // Verifica si hay permisos
@@ -29,7 +31,7 @@ if (!Ti.Media.hasCameraPermissions()) {
 } else {
     // Ya hay permisos
     Ti.Media.showCamera({
-    	
+
     	
     });
 }
@@ -46,46 +48,101 @@ tabGroup.open();
  * @return {String} icon The icon used in the `Ti.UI.Tab`
  */
 function createTab(title, message, icon) {
-	if(title=="Tab 2"){
+	if(message=="Inicio"){
+		
+		//pestaña principal
+		win = Ti.UI.createWindow({
+        	title: title,
+        	backgroundImage: "assets/images/background.png",
+        	backgroundColor: '#fff'
+        }),
+        label1 = Ti.UI.createLabel({
+        text: "Titanium APP",
+        Top:	5,
+        left:	20,
+  		color: "#333",
+        font: {
+            fontSize: 60
+        }});
+        		  
+        win.add(label1);
+	    
+
+		//pestaña de Camara
+	} else if(message=="Camara"){
 		
 		win = Ti.UI.createWindow({
-	        	title: title,
 	        	layout: 'vertical',
-	        	backgroundColor: '#fff'
+	           	backgroundImage: "assets/images/background.png",
+			   	backgroundColor: '#fff'
 	    	}),
 	    	photoBtn = Ti.UI.createButton({
-	        	title: 'Tomar Foto'
+	        	title: 'Tomar Foto',
+	        	display: 'block',
+	        	top:	30,
+   				height: 100,
+	        	width: 300
     		}),
     		videoBtn = Ti.UI.createButton({
-        		title: 'Tomar Video'
+        		title: 'Tomar Video',
+	        	display: 'block',
+        		top: 80,
+   				width: 300,
+   				height: 100
     		});
 		win.add(photoBtn);
 		win.add(videoBtn);    
 
-	}else{	
-
+	}else if(message=="Galeria"){		
 		win = Ti.UI.createWindow({
-        	title: title,
-        	backgroundColor: '#fff'
-    	
-    	}),imageView = Ti.UI.createImageView({
-                image: "assets/images/tab1.png"
-            
+	        	layout: 'vertical',
+	           	backgroundImage: "assets/images/background.png",
+	        	backgroundColor: '#fff'
+	    	}),
+	    	imageBtn = Ti.UI.createButton({
+	        	title: 'Ver Galeria',
+	        	display: 'block',
+	        	top:	100,
+   				height: 100,
+	        	width: 300
+    		}),
+		
+		win.add(imageBtn);	
+		
+	}else{
+		
+		
+		//pestaña de noticias
+		win = Ti.UI.createWindow({
+	        layout: 'vertical',
+        	backgroundColor: '#fff',
+           	backgroundImage: "assets/images/background.png",    	
+    	}),
+    	imageView1 = Ti.UI.createImageView({
+                image: "assets/images/n4.jpg",
+            	title:	"Noticia 1",
+   				width: 200,
+   				height: 150
+        }),
+        imageView2 = Ti.UI.createImageView({
+                image: "assets/images/n3.jpg",
+            	title:	"Noticia 2",
+            	Top:	200,
+            	width: 200,
+   				height: 150
+        }),
+        imageView3 = Ti.UI.createImageView({
+                image: "assets/images/n2.jpg",
+            	title:	"Noticia 3",
+            	Top:	400,
+            	width: 	200,
+   				height: 150
         });
-
-    
-            // add the imageView to the window
-            win.add(imageView);
+            win.add(imageView1);
+            win.add(imageView2);
+            win.add(imageView3);
+          
      }
-    var label = Ti.UI.createLabel({
-        text: message,
-        color: "#333",
-        font: {
-            fontSize: 20
-        }
-    });
-
-    win.add(label);
 
 	//	win.open();	
     
@@ -94,13 +151,16 @@ function createTab(title, message, icon) {
         icon: icon,
         window: win
     });
-    
+
+	win.setTitle("Titanium App");
+	
+	
     return tab;
 }
 
 function showCamera (type, callback) {
     var camera = function () {
-        // call Titanium.Media.showCamera and respond callbacks
+        // se llama Titanium.Media.showCamera & respond callbacks
         Ti.Media.showCamera({
             success: function (e) {
                 callback(null, e);
@@ -111,24 +171,24 @@ function showCamera (type, callback) {
             error: function (e) {
                 callback(e, null);
             },
-            saveToPhotoGallery: true, // save our media to the gallery
+            saveToPhotoGallery: true, // se guarda en la galeria
             mediaTypes: [ type ]
         });
     };
  
-    // check if we already have permissions to capture media
+    // Se verifican los permisos
     if (!Ti.Media.hasCameraPermissions()) {
  
-        // request permissions to capture media
+        // solicita los permisos 
         Ti.Media.requestCameraPermissions(function (e) {
  
-            // success! display the camera
+            // se muestra la camara
             if (e.success) {
                 camera();
  
-            // oops! could not obtain required permissions
+            // No se permitio acceso a la camara
             } else {
-                callback(new Error('could not obtain camera permissions!'), null);
+                callback(new Error('No se obtuvieron los permisos para la camara'), null);
             }
         });
     } else {
@@ -138,50 +198,83 @@ function showCamera (type, callback) {
  
 photoBtn.addEventListener('click', function () {
  
-    // attempt to take a photo with the camera
+    // Intenta tomar una foto
     showCamera(Ti.Media.MEDIA_TYPE_PHOTO, function (error, result) {
         if (error) {
-            alert('could not take photo');
+            alert('No se pudo tomar la foto');
             return;
         }
  
-        // validate we taken a photo
+        // se valida que se tomo una foto
         if (result.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-        
-           // create an imageView to display our photo
-/*            var imageView = Ti.UI.createImageView({
-                image: result.media
-            });
- 
-            // add the imageView to the window
-            win.add(imageView);*/
-        }
+    	    
+			alert('Fotografía guardada exitosamente !');
+		}
+    	
     });
-});
+
+	});
  
 videoBtn.addEventListener('click', function () {
  
-    // attempt to capture video with the camera
+    // Intento de tomar videl
     showCamera(Ti.Media.MEDIA_TYPE_VIDEO, function (error, result) {
         if (error) {
-            alert('could not capture video');
+            alert('No se pudo capturar el video');
             return;
         }
   
-        // validate we taken a video
+        // valida que se tomo video
         if (result.mediaType == Ti.Media.MEDIA_TYPE_VIDEO) {
-   
-     
-            // create a videoPlayer to display our video
-    /*        var videoPlayer = Ti.Media.createVideoPlayer({
-                url: result.media.nativePath,
-                autoplay: true
-            });
- 
-            // add the videoPlayer to the window
-            win.add(videoPlayer);
-        */
+			alert('Video guardado exitosamente !');   
        }
+    });
+});
+
+imageView1.addEventListener('click', function (e) {
+		var url="https://elperiodico.com.gt/mundo/2018/03/22/que-pasa-con-los-datos-en-la-red/";
+		if (e) {
+            alert('No se puede abrir la ruta  \n'+url);
+            
+        }else{
+			win.open(url , "Noticia1" , "width=120,height=300,scrollbars=YES"); 			
+		}
+});
+
+imageView2.addEventListener('click', function (e) {
+		var url="https://elperiodico.com.gt/inversion/2018/03/21/telefonica-presenta-plataforma-para-emprendedores/";
+		if (e) {
+            alert('No se puede abrir la ruta  \n'+url);
+            
+        }else{
+			win.open(url , "Noticia2" , "width=120,height=300,scrollbars=YES"); 			
+		}
+});
+
+imageView3.addEventListener('click', function (e) {
+		var url="https://elperiodico.com.gt/accion/2018/03/11/rojos-golean-a-petapa-y-sanarate-es-lider/";
+		if (e) {
+            alert('No se puede abrir la ruta  \n'+url);
+            
+        }else{
+			win.open(url , "Noticia3" , "width=120,height=300,scrollbars=YES"); 			
+		}
+});
+
+
+ imageBtn.addEventListener('click', function(){
+    Ti.Media.openPhotoGallery({
+        mediaTypes: [ Titanium.Media.MEDIA_TYPE_PHOTO ],
+        success: function (e) {
+            alert('media.width: ' + e.media.width
+                + '\nmedia.height: ' + e.media.height
+                + '\nmedia.length: ' + e.media.length
+                + '\nmedia.mimeType: ' + e.media.mimeType
+                + '\nmedia.nativePath: ' + e.media.nativePath);
+        },
+        error: function (e) {
+            alert('error abriendo imagen: ' + e);
+        }
     });
 });
  
